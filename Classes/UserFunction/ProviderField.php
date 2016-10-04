@@ -65,8 +65,9 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVariantsField(array $parameters) {
-		ArrayUtility::mergeRecursiveWithOverrule($parameters['row'], $this->loadRecord('tt_content', $parameters['row']['uid']));
-		// $parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
+		if (MathUtility::canBeInterpretedAsInteger($parameters['row']['uid'])) {
+			ArrayUtility::mergeRecursiveWithOverrule($parameters['row'], $this->loadRecord('tt_content', $parameters['row']['uid']));
+		}
 
 		$cType = is_array($parameters['row']['CType']) ? current($parameters['row']['CType']) : $parameters['row']['CType'];
 
@@ -143,8 +144,9 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVersionsField(array $parameters) {
-		ArrayUtility::mergeRecursiveWithOverrule($parameters['row'], $this->loadRecord('tt_content', $parameters['row']['uid']));
-		// $parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
+		if (MathUtility::canBeInterpretedAsInteger($parameters['row']['uid'])) {
+			ArrayUtility::mergeRecursiveWithOverrule($parameters['row'], $this->loadRecord('tt_content', $parameters['row']['uid']));
+		}
 
 		$cType = is_array($parameters['row']['CType']) ? current($parameters['row']['CType']) : $parameters['row']['CType'];
 
