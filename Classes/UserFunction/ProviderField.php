@@ -64,8 +64,12 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVariantsField(array $parameters) {
-		$parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
-		$extensionKeys = $this->configurationService->getVariantExtensionKeysForContentType($parameters['row']['CType']);
+		ArrayUtility::mergeRecursiveWithOverrule($parameters['row'], $this->loadRecord('tt_content', $parameters['row']['uid']));
+		// $parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
+
+		$cType = is_array($parameters['row']['CType']) ? current($parameters['row']['CType']) : $parameters['row']['CType'];
+
+		$extensionKeys = $this->configurationService->getVariantExtensionKeysForContentType($cType);
 		$defaults = $this->configurationService->getDefaults();
 		$preSelected = $parameters['row']['content_variant'];
 		if (CoreContentProvider::MODE_PRESELECT === $defaults['mode'] && TRUE === empty($preSelected)) {
@@ -138,7 +142,11 @@ class ProviderField {
 	 * @return string
 	 */
 	public function createVersionsField(array $parameters) {
-		$parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
+		ArrayUtility::mergeRecursiveWithOverrule($parameters['row'], $this->loadRecord('tt_content', $parameters['row']['uid']));
+		// $parameters['row'] = $this->loadRecord('tt_content', $parameters['row']['uid']);
+
+		$cType = is_array($parameters['row']['CType']) ? current($parameters['row']['CType']) : $parameters['row']['CType'];
+
 		$options = array();
 		$defaults = $this->configurationService->getDefaults();
 		$preSelectedVariant = $parameters['row']['content_variant'];
@@ -152,10 +160,10 @@ class ProviderField {
 			}
 		}
 
-		$versions = $this->configurationService->getVariantVersions($parameters['row']['CType'], $preSelectedVariant);
+		$versions = $this->configurationService->getVariantVersions($cType, $preSelectedVariant);
 		if (TRUE === is_array($versions) && 0 < count($versions)) {
 			foreach ($versions as $version) {
-				$icon = $this->configurationService->getIconFromVersion($preSelectedVariant, $parameters['row']['CType'], $version);
+				$icon = $this->configurationService->getIconFromVersion($preSelectedVariant, $cType, $version);
 				$versionIcon = '<img src="' . $icon . '" alt="" /> ';
 				$options[$version] = array($versionIcon, $version);
 			}
