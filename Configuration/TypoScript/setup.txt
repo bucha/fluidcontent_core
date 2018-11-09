@@ -63,6 +63,7 @@ plugin.tx_fluidcontentcore.bootstrap {
     extensionName = FluidcontentCore
 }
 
+/*
 lib.stdheader = COA
 
 tt_content >
@@ -180,3 +181,4 @@ lib.parseFunc_RTE {
 		htmlSpecialChars = 2
 	}
 }
+*/

@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'shy' => 0,
 	'version' => '1.4.0',
 	'dependencies' => 'cms,flux,vhs',
-	'conflicts' => 'css_styled_content,fluid_styled_content',
+	'conflicts' => '',
 	'priority' => 'top',
 	'loadOrder' => '',
 	'module' => '',
@@ -33,16 +33,6 @@ $EM_CONF[$_EXTKEY] = array(
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
 	'constraints' => array(
-		'depends' => array(
-			'typo3' => '7.6.0-7.6.99',
-			'cms' => '',
-			'flux' => '7.2.0-7.3.99',
-			'vhs' => '2.1.0-2.4.99',
-		),
-		'conflicts' => array(
-			'css_styled_content' => '',
-			'fluid_styled_content' => ''
-		),
 		'suggests' => array(
 		),
 	),

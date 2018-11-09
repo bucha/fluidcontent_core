@@ -1,5 +1,5 @@
 {
-    "name": "fluidtypo3/fluidcontent_core",
+    "name": "bucha/fluidcontent_core",
     "config": {
         "preferred-install": "dist"
     },
