@@ -63,6 +63,15 @@ plugin.tx_fluidcontentcore.bootstrap {
     extensionName = FluidcontentCore
 }
 
+tt_content.text < plugin.tx_fluidcontentcore.bootstrap
+tt_content.text.pluginName = Text
+tt_content.image < plugin.tx_fluidcontentcore.bootstrap
+tt_content.image.pluginName = Image
+tt_content.header < plugin.tx_fluidcontentcore.bootstrap
+tt_content.header.pluginName = Header
+tt_content.uploads < plugin.tx_fluidcontentcore.bootstrap
+tt_content.uploads.pluginName = Uploads
+
 /*
 lib.stdheader = COA
 

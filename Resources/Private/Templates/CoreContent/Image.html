@@ -28,11 +28,6 @@
 		<f:for each="{images}" as="image" iteration="iteration">
 			<v:media.image src="{image.uid}" treatIdAsReference="TRUE" alt="{image.id}" height="50" style="height: auto; max-width: 100%;" />
 		</f:for>
-		<f:if condition="{settings.extendedCaptions}">
-			<f:if condition="{images -> f:count()} > 0">
-				<flux:widget.grid />
-			</f:if>
-		</f:if>
 	</v:resource.record.fal>
 </f:section>
 
