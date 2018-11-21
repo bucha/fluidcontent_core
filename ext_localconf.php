@@ -21,7 +21,7 @@ $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'] = [
 ];
 
 \FluidTYPO3\Flux\Core::registerConfigurationProvider('FluidTYPO3\FluidcontentCore\Provider\CoreContentProvider');
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms']['db_new_content_el']['wizardItemsHook']['fluidcontent_core'] = 'FluidTYPO3\FluidcontentCore\Hooks\WizardItemsHookSubscriber';
+//$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms']['db_new_content_el']['wizardItemsHook']['fluidcontent_core'] = 'FluidTYPO3\FluidcontentCore\Hooks\WizardItemsHookSubscriber';
 
 
 // enable SignalSlot

@@ -13,8 +13,8 @@ use FluidTYPO3\Flux\Service\FluxService;
 use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
 use FluidTYPO3\Flux\Utility\MiscellaneousUtility;
 use FluidTYPO3\Flux\View\ViewContext;
-use FluidTYPO3\Flux\View\TemplatePaths;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Fluid\View\TemplatePaths;
 
 /**
  * Class ConfigurationService
@@ -132,7 +132,8 @@ class ConfigurationService extends FluxService implements SingletonInterface {
 	 * @return string
 	 */
 	public function resolveTemplateFileForVariant($extensionKey, $contentType, $variant = NULL, $version = NULL) {
-		$paths = $this->getViewConfigurationForExtensionName(FALSE === empty($variant) ? $variant : $extensionKey);
+		$extensionName = FALSE === empty($variant) ? $variant : $extensionKey;
+		$paths = (new TemplatePaths(ExtensionNamingUtility::getExtensionKey($extensionName)))->toArray();
 		$templatePaths = new TemplatePaths($paths);
 		$controllerName = 'CoreContent';
 		$controllerAction = FALSE === empty($version) ? $contentType . '/' . $version : $contentType;

@@ -3,11 +3,11 @@
      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" f:schemaLocation="http://fluidtypo3.org/schemas/fluid-master.xsd">
 
 <flux:form.sheet name="image" label="LLL:sheets.image" extensionName="FluidTYPO3.FluidcontentCore">
-	<flux:field.select name="settings.image.className" renderMode="checkbox" minItems="0" maxItems="100" items="{settings.image.classNames}" label="LLL:fields.classNames" />
-	<flux:field.select name="settings.scaleMode" items="{n: '', c: 'c', m: 'm'}" default="c" />
+	<flux:field.select name="settings.image.className" renderType="selectCheckBox" minItems="0" maxItems="100" items="{settings.image.classNames}" label="LLL:fields.classNames" />
+	<flux:field.select name="settings.scaleMode" items="{n: '', c: 'c', m: 'm'}" default="c" renderType="selectSingle" />
 	<flux:field.checkbox name="settings.extendedCaptions" />
 	<flux:field.checkbox name="settings.directInclusion" />
-	<flux:field.select name="settings.caption.tagName" items="{settings.caption.types}" label="LLL:fields.tagName" requestUpdate="TRUE" />
+	<flux:field.select name="settings.caption.tagName" items="{settings.caption.types}" renderType="selectSingle" label="LLL:fields.tagName" requestUpdate="TRUE" />
 </flux:form.sheet>
 
 </div>

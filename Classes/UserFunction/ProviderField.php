@@ -75,9 +75,9 @@ class ProviderField {
 		$extensionKeys = $this->configurationService->getVariantExtensionKeysForContentType($cType);
 		$defaults = $this->configurationService->getDefaults();
 		$preSelected = $parameters['row']['content_variant'];
-		if (CoreContentProvider::MODE_PRESELECT === $defaults['mode'] && TRUE === empty($preSelected)) {
-			$preSelected = $defaults['variant'];
-		}
+//		if (CoreContentProvider::MODE_PRESELECT === $defaults['mode'] && TRUE === empty($preSelected)) {
+//			$preSelected = $defaults['variant'];
+//		}
 		if (TRUE === is_array($extensionKeys) && 0 < count($extensionKeys)) {
 			$options = $this->renderOptions($extensionKeys);
 		} else {
@@ -155,14 +155,14 @@ class ProviderField {
 		$defaults = $this->configurationService->getDefaults();
 		$preSelectedVariant = $parameters['row']['content_variant'];
 		$preSelectedVersion = $parameters['row']['content_version'];
-		if (CoreContentProvider::MODE_PRESELECT === $defaults['mode']) {
-			if (TRUE === empty($preSelectedVariant)) {
-				$preSelectedVariant = $defaults['variant'];
-			}
-			if (TRUE === empty($preSelectedVersion)) {
-				$preSelectedVersion = $defaults['version'];
-			}
-		}
+//		if (CoreContentProvider::MODE_PRESELECT === $defaults['mode']) {
+//			if (TRUE === empty($preSelectedVariant)) {
+//				$preSelectedVariant = $defaults['variant'];
+//			}
+//			if (TRUE === empty($preSelectedVersion)) {
+//				$preSelectedVersion = $defaults['version'];
+//			}
+//		}
 
 		$versions = $this->configurationService->getVariantVersions($cType, $preSelectedVariant);
 		if (TRUE === is_array($versions) && 0 < count($versions)) {

@@ -10,8 +10,7 @@ namespace FluidTYPO3\FluidcontentCore\Provider;
 
 use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use FluidTYPO3\Flux\Form;
-use FluidTYPO3\Flux\Provider\ContentProvider;
-use FluidTYPO3\Flux\Provider\ProviderInterface;
+use FluidTYPO3\Flux\Provider\AbstractProvider;
 use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
 use FluidTYPO3\Flux\Utility\PathUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
@@ -26,29 +25,29 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * processing records. This processing ensures that relationships
  * between content elements get stored correctly.
  */
-class CoreContentProvider extends ContentProvider implements ProviderInterface {
+class CoreContentProvider extends AbstractProvider {
 
 	const MODE_RECORD = 'record';
 	const MODE_PRESELECT = 'preselect';
-	const CTYPE_MENU = 'menu';
-	const CTYPE_TABLE = 'table';
-	const CTYPE_FIELDNAME = 'CType';
-	const MENUTYPE_FIELDNAME = 'menu_type';
-	const MENU_SELECTEDPAGES = 0;
-	const MENU_SUBPAGESOFSELECTEDPAGES = 1;
-	const MENU_SUBPAGESOFSELECTEDPAGESWITHABSTRACT = 4;
-	const MENU_SUBPAGESOFSELECTEDPAGESWITHSECTIONS = 7;
-	const MENU_SITEMAP = 2;
-	const MENU_SITEMAPSOFSELECTEDPAGES = 8;
-	const MENU_SECTIONINDEX = 3;
-	const MENU_RECENTLYUPDATED = 5;
-	const MENU_RELATEDPAGES = 6;
-	const MENU_CATEGORIZEDPAGES = 'categorized_pages';
-	const MENU_CATEGORIZEDCONTENT = 'categorized_content';
-	const THEAD_NONE = 'none';
-	const THEAD_TOP = 'top';
-	const THEAD_LEFT = 'left';
-
+//	const CTYPE_MENU = 'menu';
+//	const CTYPE_TABLE = 'table';
+//	const CTYPE_FIELDNAME = 'CType';
+//	const MENUTYPE_FIELDNAME = 'menu_type';
+//	const MENU_SELECTEDPAGES = 0;
+//	const MENU_SUBPAGESOFSELECTEDPAGES = 1;
+//	const MENU_SUBPAGESOFSELECTEDPAGESWITHABSTRACT = 4;
+//	const MENU_SUBPAGESOFSELECTEDPAGESWITHSECTIONS = 7;
+//	const MENU_SITEMAP = 2;
+//	const MENU_SITEMAPSOFSELECTEDPAGES = 8;
+//	const MENU_SECTIONINDEX = 3;
+//	const MENU_RECENTLYUPDATED = 5;
+//	const MENU_RELATEDPAGES = 6;
+//	const MENU_CATEGORIZEDPAGES = 'categorized_pages';
+//	const MENU_CATEGORIZEDCONTENT = 'categorized_content';
+//	const THEAD_NONE = 'none';
+//	const THEAD_TOP = 'top';
+//	const THEAD_LEFT = 'left';
+//
 	/**
 	 * @var string
 	 */
@@ -68,30 +67,30 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	 * @var string
 	 */
 	protected $fieldName = 'content_options';
-
-	/**
-	 * Filled with an integer-or-string -> Fluid section name
-	 * map which maps machine names of menu types to human
-	 * readable values that are sensible as Fluid section names.
-	 * When type is selected in menu element, corresponding
-	 * section gets rendered.
-	 *
-	 * @var array
-	 */
-	protected $menuTypeToSectionNameMap = array(
-		self::MENU_SELECTEDPAGES => 'SelectedPages',
-		self::MENU_SUBPAGESOFSELECTEDPAGES => 'SubPagesOfSelectedPages',
-		self::MENU_SUBPAGESOFSELECTEDPAGESWITHABSTRACT => 'SubPagesOfSelectedPagesWithAbstract',
-		self::MENU_SUBPAGESOFSELECTEDPAGESWITHSECTIONS => 'SubPagesOfSelectedPagesWithSections',
-		self::MENU_SITEMAP => 'SiteMap',
-		self::MENU_SITEMAPSOFSELECTEDPAGES => 'SiteMapsOfSelectedPages',
-		self::MENU_SECTIONINDEX => 'SectionIndex',
-		self::MENU_RECENTLYUPDATED => 'RecentlyUpdated',
-		self::MENU_RELATEDPAGES => 'RelatedPages',
-		self::MENU_CATEGORIZEDPAGES => 'CategorizedPages',
-		self::MENU_CATEGORIZEDCONTENT => 'CategorizedContent'
-	);
-
+//
+//	/**
+//	 * Filled with an integer-or-string -> Fluid section name
+//	 * map which maps machine names of menu types to human
+//	 * readable values that are sensible as Fluid section names.
+//	 * When type is selected in menu element, corresponding
+//	 * section gets rendered.
+//	 *
+//	 * @var array
+//	 */
+//	protected $menuTypeToSectionNameMap = array(
+//		self::MENU_SELECTEDPAGES => 'SelectedPages',
+//		self::MENU_SUBPAGESOFSELECTEDPAGES => 'SubPagesOfSelectedPages',
+//		self::MENU_SUBPAGESOFSELECTEDPAGESWITHABSTRACT => 'SubPagesOfSelectedPagesWithAbstract',
+//		self::MENU_SUBPAGESOFSELECTEDPAGESWITHSECTIONS => 'SubPagesOfSelectedPagesWithSections',
+//		self::MENU_SITEMAP => 'SiteMap',
+//		self::MENU_SITEMAPSOFSELECTEDPAGES => 'SiteMapsOfSelectedPages',
+//		self::MENU_SECTIONINDEX => 'SectionIndex',
+//		self::MENU_RECENTLYUPDATED => 'RecentlyUpdated',
+//		self::MENU_RELATEDPAGES => 'RelatedPages',
+//		self::MENU_CATEGORIZEDPAGES => 'CategorizedPages',
+//		self::MENU_CATEGORIZEDCONTENT => 'CategorizedContent'
+//	);
+//
 	/**
 	 * @var ConfigurationService
 	 */
@@ -104,16 +103,16 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	public function injectContentConfigurationService(ConfigurationService $contentConfigurationService) {
 		$this->contentConfigurationService = $contentConfigurationService;
 	}
-
-	/**
-	 * @return void
-	 */
-	public function initializeObject() {
-		$typoScript = $this->contentConfigurationService->getAllTypoScript();
-		$settings = $typoScript['plugin']['tx_fluidcontentcore']['settings'];
-		$this->templateVariables['settings'] = $settings;
-		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaults']['template']);
-	}
+//
+//	/**
+//	 * @return void
+//	 */
+//	public function initializeObject() {
+//		$typoScript = $this->contentConfigurationService->getAllTypoScript();
+//		$settings = $typoScript['plugin']['tx_fluidcontentcore']['settings'];
+//		$this->templateVariables['settings'] = $settings;
+////		$this->templatePathAndFilename = PathUtility::translatePath($settings['defaults']['template']);
+//	}
 
 	/**
 	 * Note: This Provider will -always- trigger on any tt_content record
@@ -127,30 +126,37 @@ class CoreContentProvider extends ContentProvider implements ProviderInterface {
 	 * @return boolean
 	 */
 	public function trigger(array $row, $table, $field, $extensionKey = NULL) {
-		return ($table === $this->tableName && ($field === $this->fieldName || NULL === $field));
+		$registeredTypes = (array) $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'];
+
+		return (
+			$table === $this->tableName
+			&& ($field === $this->fieldName || NULL === $field)
+			&& TRUE === \in_array($row['CType'], $registeredTypes, true)
+		);
 	}
 
-	/**
-	 * @param array $row
-	 * @return Form
-	 */
-	public function getForm(array $row) {
-		if (self::CTYPE_MENU === $row[self::CTYPE_FIELDNAME]) {
-			// addtional menu variables
-			$menuType = $row[self::MENUTYPE_FIELDNAME];
-			$partialTemplateName = $this->menuTypeToSectionNameMap[$menuType];
-			$this->templateVariables['menuPartialTemplateName'] = $partialTemplateName;
-			$this->templateVariables['pageUids'] = GeneralUtility::trimExplode(',', $row['pages']);
-		}
-		if (self::CTYPE_TABLE == $row[self::CTYPE_FIELDNAME]) {
-			$this->templateVariables['tableHeadPositions'] = array(
-				self::THEAD_NONE => $this->translateLabel('tableHead.none', 'fluidcontent_core'),
-				self::THEAD_TOP => $this->translateLabel('tableHead.top', 'fluidcontent_core'),
-				self::THEAD_LEFT => $this->translateLabel('tableHead.left', 'fluidcontent_core'),
-			);
-		}
-		return parent::getForm($row);
-	}
+//	/**
+//	 * @param array $row
+//	 * @return Form
+//	 */
+//	public function getForm(array $row) {
+//		if (self::CTYPE_MENU === $row[self::CTYPE_FIELDNAME]) {
+//			// addtional menu variables
+//			$menuType = $row[self::MENUTYPE_FIELDNAME];
+//			$partialTemplateName = $this->menuTypeToSectionNameMap[$menuType];
+//			$this->templateVariables['menuPartialTemplateName'] = $partialTemplateName;
+//			$this->templateVariables['pageUids'] = GeneralUtility::trimExplode(',', $row['pages']);
+//		}
+//		if (self::CTYPE_TABLE == $row[self::CTYPE_FIELDNAME]) {
+//			$this->templateVariables['tableHeadPositions'] = array(
+//				self::THEAD_NONE => $this->translateLabel('tableHead.none', 'fluidcontent_core'),
+//				self::THEAD_TOP => $this->translateLabel('tableHead.top', 'fluidcontent_core'),
+//				self::THEAD_LEFT => $this->translateLabel('tableHead.left', 'fluidcontent_core'),
+//			);
+//		}
+//		return parent::getForm($row);
+//	}
+
 
 	/**
 	 * @param array $row
