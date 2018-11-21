@@ -241,7 +241,8 @@ $GLOBALS['TCA']['tt_content']['columns']['content_options'] = array(
 	'config' => array(
 		'type' => 'flex',
 		'ds' => [
-			'default' => '<T3FlexForms><data></data></T3FlexForms>'
+//			'default' => '<T3FlexForms><data></data></T3FlexForms>'
+			'default' => '<T3DataStructure><ROOT><el></el></ROOT></T3DataStructure>'
 		],
 	)
 );

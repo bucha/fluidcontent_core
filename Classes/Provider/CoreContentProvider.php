@@ -131,7 +131,7 @@ class CoreContentProvider extends AbstractProvider {
 		return (
 			$table === $this->tableName
 			&& ($field === $this->fieldName || NULL === $field)
-			&& TRUE === \in_array($row['CType'], $registeredTypes, true)
+//			&& TRUE === \in_array($row['CType'], $registeredTypes, true)
 		);
 	}
 
