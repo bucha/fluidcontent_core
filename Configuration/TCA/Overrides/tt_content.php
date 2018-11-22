@@ -94,6 +94,10 @@ $GLOBALS['TCA']['tt_content']['palettes'] = array_replace(
 	]
 );
 
+//foreach ($GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'] as $type) {
+//	$GLOBALS['TCA']['tt_content']['types'][$type]['showitem'] = preg_replace('/(--palette--;.*?;)frames(,?)/', '$1frames_with_content_options$2', $GLOBALS['TCA']['tt_content']['types'][$type]['showitem']);
+//}
+
 //$GLOBALS['TCA']['tt_content']['types']['header']['showitem'] = '
 //                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general,
 //                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.headers;headers,
@@ -236,16 +240,16 @@ $GLOBALS['TCA']['tt_content']['palettes'] = array_replace(
 //';
 
 $GLOBALS['TCA']['tt_content']['columns']['pi_flexform']['label'] = NULL;
-$GLOBALS['TCA']['tt_content']['columns']['content_options'] = array(
+$GLOBALS['TCA']['tt_content']['columns']['content_options'] = [
 	'label' => NULL,
-	'config' => array(
+	'config' => [
 		'type' => 'flex',
 		'ds' => [
 //			'default' => '<T3FlexForms><data></data></T3FlexForms>'
 			'default' => '<T3DataStructure><ROOT><el></el></ROOT></T3DataStructure>'
 		],
-	)
-);
+	]
+];
 $GLOBALS['TCA']['tt_content']['columns']['content_variant'] = array(
 	'label' => 'LLL:EXT:fluidcontent_core/Resources/Private/Language/locallang.xlf:tt_content.content_variant',
 	'exclude' => 1,

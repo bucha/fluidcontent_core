@@ -10,6 +10,7 @@ namespace FluidTYPO3\FluidcontentCore\Provider;
 
 use FluidTYPO3\FluidcontentCore\Service\ConfigurationService;
 use FluidTYPO3\Flux\Form;
+use FluidTYPO3\Flux\Hooks\HookHandler;
 use FluidTYPO3\Flux\Provider\AbstractProvider;
 use FluidTYPO3\Flux\Utility\ExtensionNamingUtility;
 use FluidTYPO3\Flux\Utility\PathUtility;
@@ -100,7 +101,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param ConfigurationService $contentConfigurationService
 	 * @return void
 	 */
-	public function injectContentConfigurationService(ConfigurationService $contentConfigurationService) {
+	public function injectContentConfigurationService(ConfigurationService $contentConfigurationService): void
+	{
 		$this->contentConfigurationService = $contentConfigurationService;
 	}
 //
@@ -125,7 +127,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param string $extensionKey
 	 * @return boolean
 	 */
-	public function trigger(array $row, $table, $field, $extensionKey = NULL) {
+	public function trigger(array $row, $table, $field, $extensionKey = NULL): bool
+	{
 		$registeredTypes = (array) $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'];
 
 		return (
@@ -162,7 +165,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param array $row
 	 * @return string|NULL
 	 */
-	public function getExtensionKey(array $row) {
+	public function getExtensionKey(array $row): string
+	{
 		$extensionKey = $this->extensionKey;
 		if (FALSE === empty($row['content_variant'])) {
 			$extensionKey = $row['content_variant'];
@@ -174,7 +178,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param array $row
 	 * @return string
 	 */
-	public function getControllerExtensionKeyFromRecord(array $row) {
+	public function getControllerExtensionKeyFromRecord(array $row): string
+	{
 		if (FALSE === empty($row['content_variant'])) {
 			return $row['content_variant'];
 		}
@@ -185,21 +190,39 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param array $row
 	 * @return string
 	 */
-	public function getTemplatePathAndFilename(array $row) {
+	public function getTemplatePathAndFilename(array $row): string
+	{
 		$extensionKey = $this->getExtensionKey($row);
+
+		$registeredTypes = (array) $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'];
+		if (!\in_array($row['CType'], $registeredTypes, true)) {
+			return $this->contentConfigurationService->resolveTemplateFileForVariant($extensionKey, 'Default');
+			return parent::getTemplatePathAndFilename($row);
+		}
+
 		$variant = $this->getVariant($row);
 		$version = $this->getVersion($row);
-		$registeredTypes = (array) $GLOBALS['TYPO3_CONF_VARS']['FluidTYPO3.FluidcontentCore']['types'];
-		$templateName = TRUE === in_array($row['CType'], $registeredTypes) ? $row['CType'] : 'default';
+		$templateName = $row['CType'];
 		$template = $this->contentConfigurationService->resolveTemplateFileForVariant($extensionKey, $templateName, $variant, $version);
 		return $template;
 	}
 
 	/**
 	 * @param array $row
+	 * @return array
+	 */
+	public function getPreview(array $row): array
+	{
+		list ($previewHeader, $previewContent, $continueDrawing) = parent::getPreview($row);
+		return [null, $previewContent, TRUE];
+	}
+
+	/**
+	 * @param array $row
 	 * @return string
 	 */
-	protected function getVariant(array $row) {
+	protected function getVariant(array $row): ?string
+	{
 		$defaults = $this->contentConfigurationService->getDefaults();
 		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_variant'])) {
 			return $defaults['variant'];
@@ -211,7 +234,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param array $row
 	 * @return string
 	 */
-	protected function getVersion(array $row) {
+	protected function getVersion(array $row): ?string
+	{
 		$defaults = $this->contentConfigurationService->getDefaults();
 		if (self::MODE_RECORD !== $defaults['mode'] && TRUE === empty($row['content_version'])) {
 			return $defaults['version'];
@@ -223,7 +247,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param array $row
 	 * @return string
 	 */
-	public function getControllerActionFromRecord(array $row) {
+	public function getControllerActionFromRecord(array $row): string
+	{
 		return strtolower($row['CType']);
 	}
 
@@ -235,7 +260,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param array $removals Allows overridden methods to pass an additional array of field names to remove from the stored Flux value
 	 * @return void
 	 */
-	public function postProcessRecord($operation, $id, array &$row, DataHandler $reference, array $removals = array()) {
+	public function postProcessRecord($operation, $id, array &$row, DataHandler $reference, array $removals = []): void
+	{
 		$defaults = $this->contentConfigurationService->getDefaults();
 		if (self::MODE_RECORD === $defaults['mode']) {
 			if (TRUE === empty($row['content_variant'])) {
@@ -245,14 +271,15 @@ class CoreContentProvider extends AbstractProvider {
 				$row['content_version'] = $defaults['version'];
 			}
 		}
-		return parent::postProcessRecord($operation, $id, $row, $reference);
+		parent::postProcessRecord($operation, $id, $row, $reference);
 	}
 
 	/**
 	 * @param array $row
 	 * @return array
 	 */
-	public function getTemplatePaths(array $row) {
+	public function getTemplatePaths(array $row): array
+	{
 		$paths = parent::getTemplatePaths($row);
 
 		$variant = $this->getVariant($row);
@@ -271,7 +298,8 @@ class CoreContentProvider extends AbstractProvider {
 	 * @param string $key
 	 * @return string|NULL
 	 */
-	protected function translateLabel($key) {
+	protected function translateLabel($key): string
+	{
 		return LocalizationUtility::translate($key, 'fluidcontent_core');
 	}
 
