@@ -36,7 +36,9 @@
 		<f:for each="{images}" as="image" iteration="iteration">
 			<v:tag name="{settings.caption.tagName}">
 				<f:render partial="Content/Image" arguments="{_all}" />
-				<flux:content.render area="content{image.uid}" />
+				<f:if condition="{settings.extendedCaptions}">
+					<flux:content.render area="content{image.uid}" />
+				</f:if>
 			</v:tag>
 		</f:for>
 	</v:resource.record.fal>

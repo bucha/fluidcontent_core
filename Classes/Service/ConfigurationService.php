@@ -74,8 +74,7 @@ class ConfigurationService extends FluxService implements SingletonInterface {
 					$labelReference = 'fluidcontent_core.variantLabel';
 				}
 				$controllerName = 'CoreContent/' . ucfirst($contentType);
-				$paths = $this->getViewConfigurationForExtensionName($extensionKey);
-				$templatePaths = new TemplatePaths($paths);
+				$templatePaths = new TemplatePaths(ExtensionNamingUtility::getExtensionKey($extensionKey));
 				$files = $templatePaths->resolveAvailableTemplateFiles($controllerName);
 				foreach ($files as $file) {
 					$versions[] = basename($file, '.' . TemplatePaths::DEFAULT_FORMAT);
