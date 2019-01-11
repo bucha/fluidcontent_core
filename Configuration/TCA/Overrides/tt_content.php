@@ -316,3 +316,6 @@ foreach ($GLOBALS['TCA']['tt_content']['columns']['CType']['config']['items'] as
 	}
 };
 unset($index, $item);
+
+
+//echo "<pre>DEBUG\nFILE:" . __FILE__ . "\nLINE:" . __LINE__ . PHP_EOL; print_r($GLOBALS['TCA']['tt_content']['types']['image']); exit;
